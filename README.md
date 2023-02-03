@@ -4,8 +4,10 @@ Concept
 ### Target
 
 We aim for a simplistic hack and slash -type character-action game with
-fast-paced and unforgiving, but satisfying combat. Explore dungeons and
-send enemies to meet their maker, before they send you to meet yours.
+fast-paced, unforgiving and satisfying combat. Enemies fold like cartboard,
+but so does the hero. With everybody throwing around lethal moves, dashing,
+dodging and ruthlessness are the name of the game. Isolate and vanquish your
+enemies before they surround and overwhelm you.
 
 ### Connection to GGJ's theme
 
