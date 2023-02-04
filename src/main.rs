@@ -8,6 +8,7 @@
 
 // Standard library imports
 use std::collections::HashMap;
+use std::fs;
 use std::io;
 
 // Crate imports
@@ -32,14 +33,10 @@ probably yes. it's easier to handle one state than to handle one state and then 
  * Returns an exit status to the OS
  */
 fn main() {
-    let level = "file_path_here";
+    let level = load_level();
 
     // If we get here, assume everything is good to go
     gameloop(level);
-}
-
-fn load_level(address) {
-
 }
 
 /* Where the main logic of the game happens

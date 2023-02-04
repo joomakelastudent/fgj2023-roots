@@ -6,6 +6,7 @@ struct GameState {
 struct PlayerState {
     location : Location,
     health : Health,
+    status : 
 }
 
 struct Location {
