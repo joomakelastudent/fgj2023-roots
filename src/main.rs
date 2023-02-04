@@ -28,7 +28,7 @@ fn main() {
 }
 
 fn load_map() -> Vec<char> {
-    let contents = fs::read_to_string("../../assets/placeholder.map")
+    let contents = fs::read_to_string("./assets/placeholder.map")
         .expect("Error opening map.");
     
     let mut map_vector: Vec<char> = Vec::new();
