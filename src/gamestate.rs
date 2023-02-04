@@ -8,38 +8,49 @@
 
  /// List of (most) structs that are used in the game
 
-struct GameState {
-    map_state : MapState,
-    player_state : PlayerState,
+pub struct GameState {
+    pub map_state: MapState,
+    pub control_state: ControlState,
+    pub player_state: PlayerState,
 }
 
-struct MapState {
-    data: String,
+pub struct MapState {
+    pub data: String,
 }
 
-struct PlayerState {
-    location: Location,
-    health: Health,
-    direction: i8,
-    dash_available: bool,
-    dash_cooldown: i32,
-    attack_available: bool,
-    attack_cooldown: i32,
+pub enum ControlState {
+    PAUSED,
+    ACTION,
 }
 
-struct Location {
-    x: i32,
-    y: i32,
+pub struct PlayerState {
+    pub location: Location,
+    pub health: Health,
+    pub heading: i8, // North, south, east or west
+    pub dash_available: bool,
+    pub dash_cooldown: i32,
+    pub attack_available: bool,
+    pub attack_cooldown: i32,
 }
 
-struct EnemyState {
-    behavior: EnemyBehavior,
-    health: Health,
-    species: EnemySpecies,
-    location: Location,
+pub struct Location {
+    pub x: i32,
+    pub y: i32,
 }
 
-enum EnemyBehavior {
+pub struct Health {
+    pub current: i32,
+    pub max: i32,
+}
+
+pub struct EnemyState {
+    pub behavior: EnemyBehavior,
+    pub health: Health,
+    pub species: EnemySpecies,
+    pub location: Location,
+}
+
+pub enum EnemyBehavior {
     IDLE,
     MOVE_TO (Location),
     ATTACK,
