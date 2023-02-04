@@ -9,15 +9,14 @@
 // Standard library imports
     use std::fs;
 
-use gamestate::{EnemyState, GameState};
 // external dependencies
     use tui;
 
 // our modules
     //use crate::gamestate::GameState;
     mod gamestate;
+    use gamestate::GameState;
     mod render;
-
 
 // Public constant declarations
 
@@ -56,7 +55,7 @@ fn load_map() -> String {
  * Returns a usable GameState struct
  */
 fn initialize_game_state(&mapdata: &[[char; 64]; 64]) -> GameState {
-    let mut list_of_enemies: Vec<EnemyState>;
+    let mut list_of_enemies: Vec<gamestate::EnemyState>;
 
     // This is not pretty. We know
     let mut game_state = gamestate::GameState {
@@ -89,7 +88,7 @@ fn initialize_game_state(&mapdata: &[[char; 64]; 64]) -> GameState {
  * Takes the level data as a parameter
  * Returns nothing
  */
-fn gameloop(mut game_state: gamestate::GameState) {
+fn gameloop(mut game_state: GameState) {
     loop {
         // Preliminary comment
     }
