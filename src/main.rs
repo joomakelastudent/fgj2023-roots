@@ -35,14 +35,14 @@ fn main() {
     
     let map = load_map();
     // We need some basic info from the state to start/advance the main loop
-    let mut game_state: GameState = initialize_game_state(&map);
+    let mut game_state: GameState = initialize_game_state(map);
 
     // If we get here, assume everything is good to go
     //gameloop(level);
 }
 
 fn load_map() -> String {
-    let contents = fs::read_to_string("placeholder.map")
+    let contents = fs::read_to_string("../../assets/placeholder.map")
         .expect("Error opening map.");
     contents
 }
@@ -52,7 +52,7 @@ fn load_map() -> String {
  * Takes a map as a parameter
  * Returns a usable GameState struct
  */
-fn initialize_game_state(&mapstring: &String) -> GameState {
+fn initialize_game_state(mapstring: String) -> GameState {
     let mut list_of_enemies: Vec<gamestate::EnemyState>;
 
     // This is not pretty. We know
