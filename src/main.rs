@@ -40,7 +40,7 @@ fn main() {
     
     let map = load_map();
     // We need some basic info from the state to start/advance the main loop
-    let mut game_state = initialize_game_state();
+    let mut game_state = initialize_game_state(&map);
 
     // If we get here, assume everything is good to go
     //gameloop(level);
@@ -70,7 +70,7 @@ fn load_map() -> [[char; 64]; 64] {
     */
 }
 
-fn initialize_game_state()/* -> GameState */ {
+fn initialize_game_state(&map: &[[char; 64]; 64])/* -> GameState */ {
     let mut game_state = gamestate::GameState {
         
     };
