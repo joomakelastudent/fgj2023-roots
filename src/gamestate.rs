@@ -12,7 +12,7 @@ pub struct GameState {
     pub map_state: MapState,
     pub control_state: ControlState,
     pub player_state: PlayerState,
-    pub enemy_list: ,
+    pub enemy_list: Vec<EnemyState>,
 }
 
 pub struct MapState {
