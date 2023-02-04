@@ -7,7 +7,7 @@
  ******************************************************************************/
 
 // Standard library imports
-use std::time::{Instant, Duration, SystemTime, UNIX_EPOCH};
+use std::time::{Instant, Duration};
 use std::fs;
 use std::thread;
 
