@@ -55,8 +55,12 @@ fn load_map() -> [[char; 64]; 64] {
     let gamestate = initialize_game_state();
     
     let mut map: [[char; 64]; 64] = [[]];
+
     for line in file.lines() {
-        //
+        let char_vec: Vec<char> = line.chars().collect();
+        for ch in char_vec {
+            
+        }
     }
 
 
