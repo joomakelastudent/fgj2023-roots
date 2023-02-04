@@ -7,18 +7,19 @@
  ******************************************************************************/
 
 // Standard library imports
-use std::collections::HashMap;
-use std::io::{BufRead, BufReader};
-use std::fs::File;
-use std::io;
+    use std::collections::HashMap;
+    use std::io::{BufRead, BufReader};
+    use std::fs::File;
+    use std::io;
 
-use gamestate::GameState;
-// Crate imports
-use tui;
+// external dependencies
+    use tui;
 
-// Local file imports
-mod render;
-mod gamestate;
+// our modules
+    //use crate::gamestate::GameState;
+    mod gamestate;
+    mod render;
+
 
 // Public constant declarations
 
@@ -52,7 +53,7 @@ fn load_level() {
     let f = File::open("placeholder.map").expect("Unable to open map");
     let file = BufReader::new(f);
 
-    let mut game_state = GameState();
+    let gamestate = initialize_game_state();
 
     for line in file.lines() {
         for ch in line.expect("Unable to read line").chars() {
@@ -64,7 +65,9 @@ fn load_level() {
 }
 
 fn initialize_game_state()/* -> GameState */ {
-    //GameState::GameState()
+    let mut game_state = gamestate::GameState {
+        
+    };
 }
 
 /* Where the main logic of the game happens

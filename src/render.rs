@@ -15,10 +15,15 @@ i would assume that feeding it the entire frame.
     would produce the least stupid render bugs.
 */
 
+use crate::gamestate::GameState;
 
 //mutability is not needed for rendering
-fn render(/*&level: [char], &game_state: GameState*/) {
-    testcolours();
+fn render(game_state: &GameState) {
+    let background = game_state.map_state.data;
+    
+
+
+    //testcolours();
     //let level = game_state.level;
 }
 
