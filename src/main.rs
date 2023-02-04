@@ -74,10 +74,21 @@ fn load_map() -> [[char; 64]; 64] {
     */
 }
 
-fn initialize_game_state(&map: &[[char; 64]; 64])/* -> GameState */ {
+/* 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+fn initialize_game_state(&mapdata: &[[char; 64]; 64]) {
     let mut game_state = gamestate::GameState {
+        map: mapdata,
+        control_state: gamestate::ControlState::ACTION,
         
-    };
+    }
 }
 
 /* Where the main logic of the game happens
