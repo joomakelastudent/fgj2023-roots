@@ -22,9 +22,9 @@ use crate::gamestate::GameState;
 pub fn render(game_state: &GameState) {
     
     //background layer of framebuffer is the map
-    let mut framebuffer: Vec<char>;
-    for ch in game_state.map {
-        framebuffer.push(ch);
+    let mut framebuffer: Vec<char> = vec![];
+    for ch in &game_state.map {
+        framebuffer.push(*ch);
     }
     
     //let mut framebuffer = &game_state.map;
