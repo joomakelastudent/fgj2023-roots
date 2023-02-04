@@ -19,12 +19,17 @@ use crate::gamestate::GameState;
 
 //mutability is not needed for rendering
 fn render(game_state: &GameState) {
-    let background = game_state.map_state.data;
     
+    //get background
+    let framebuffer = game_state.map;
+    
+    //draw player and  
+
+
+    for 
 
 
     //testcolours();
-    //let level = game_state.level;
 }
 
 fn testcolours () {

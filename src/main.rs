@@ -38,30 +38,36 @@ probably yes. it's easier to handle one state than to handle one state and then 
  */
 fn main() {
     
-    let mut game_state = load_level();
-
+    let map = load_map();
     // We need some basic info from the state to start/advance the main loop
-    initialize_game_state();
+    let mut game_state = initialize_game_state();
 
     // If we get here, assume everything is good to go
     //gameloop(level);
 }
 
-fn load_level() {
+fn load_map() -> [[char; 64]; 64] {
     //let contents = File::read_to_string("placeholder.map")
     //    .expect("Error opening map.");
     let f = File::open("placeholder.map").expect("Unable to open map");
     let file = BufReader::new(f);
 
     let gamestate = initialize_game_state();
+    
+    let mut map: [[char; 64]; 64] = [[]];
+    for line in file.lines() {
+        //
+    }
 
+
+
+    /*
     for line in file.lines() {
         for ch in line.expect("Unable to read line").chars() {
             game_state.map_state.data.push(ch);
         }
     }
-
-    game_state
+    */
 }
 
 fn initialize_game_state()/* -> GameState */ {
@@ -78,5 +84,7 @@ fn initialize_game_state()/* -> GameState */ {
  * Returns nothing
  */
 fn gameloop() {
+    loop {
     
+    }
 }
