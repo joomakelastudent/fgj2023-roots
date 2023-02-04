@@ -81,7 +81,9 @@ fn load_map() -> [[char; 64]; 64] {
  * Returns a usable GameState struct
  */
 fn initialize_game_state(&mapdata: &[[char; 64]; 64]) -> GameState {
+    // Does this even need to be mutable?
     let mut list_of_enemies: Vec<EnemyState>;
+    
     let mut game_state = gamestate::GameState {
         map: mapdata,
         control_state: gamestate::ControlState::ACTION,
