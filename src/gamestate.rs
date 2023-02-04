@@ -12,6 +12,7 @@ pub struct GameState {
     pub map_state: MapState,
     pub control_state: ControlState,
     pub player_state: PlayerState,
+    pub enemy_state: EnemyState,
 }
 
 pub struct MapState {
@@ -19,6 +20,7 @@ pub struct MapState {
 }
 
 pub enum ControlState {
+    MENU,
     PAUSED,
     ACTION,
 }
@@ -46,10 +48,12 @@ pub struct EnemyState {
     pub health: Health,
     pub species: EnemySpecies,
     pub location: Location,
+    pub heading: i8,
 }
 
 pub enum EnemyBehavior {
     IDLE,
     MOVE_TO (Location),
     ATTACK,
+    STUNNED,
 }
