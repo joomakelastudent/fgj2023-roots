@@ -6,6 +6,8 @@
  * Repo: https://github.com/joomakelastudent/fgj2023-roots
  ******************************************************************************/
 
+ /// List of (most) structs that are used in the game
+
 struct GameState {
     map_state : MapState,
     player_state : PlayerState,
