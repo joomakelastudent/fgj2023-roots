@@ -45,19 +45,26 @@ fn load_map() -> Vec<char> {
     
     let mut map_vector: Vec<char> = Vec::new();
 
-    let mut _x = 0;
-    let mut _y = 0;
-    for (i, ch) in contents.chars().enumerate() {
-        
+    let mut line_width = 0;
+
+    //for (i, ch) in contents.chars().enumerate() {
+    for ch in contents.chars() {   
+        //pad the rest to 64 width when newline is found
+
+        if ch == '\n' {
+            while line_width <= 64 {
+                map_vector.push(' ');
+                line_width += 1;
+            }
+            line_width = 0;
+        }
+
+        //not pad
+        map_vector.push(ch);
+        line_width += 1;
     }
 
-    for y in 0..63 {
-        for x in 0..63 {
-            //if else chain for padding
-
-            vec.push
-        } 
-    }
+    map_vector
 }
 
 /* Creates a preliminary game starting state from scratch
