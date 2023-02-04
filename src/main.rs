@@ -11,6 +11,8 @@
     use std::io::{BufRead, BufReader};
     use std::fs::File;
     use std::io;
+    use std::env;
+    use std::fs;
 
 use gamestate::{EnemyState, GameState};
 // external dependencies
@@ -47,65 +49,27 @@ fn main() {
     //gameloop(level);
 }
 
-fn load_map() -> [[char; 64]; 64] {
-    //let contents = File::read_to_string("placeholder.map")
-    //    .expect("Error opening map.");
-    let f = File::open("placeholder.map").expect("Unable to open map");
-    let file = BufReader::new(f);
-
-    let gamestate = initialize_game_state();
+fn load_map() -> String  /*[[char; 64]; 64]*/ {
+    let contents = fs::read_to_string("placeholder.map")
+        .expect("Error opening map.");
     
-    let mut map: [[char; 64]; 64] = [[]];
-
-    for line in file.lines() {
-        let char_vec: Vec<char> = line.chars().collect();
-        for ch in char_vec {
-            
-        }
-    }
-
-
-
+    contents
     /*
-    for line in file.lines() {
-        for ch in line.expect("Unable to read line").chars() {
-            game_state.map_state.data.push(ch);
+    let mut map: [[char; 64]; 64];
+
+    Loop {
+        let my_char = contents.next();
+
+        for _y in 0..63 {
+            for _x in 0..63 {
+                map[_x][_y] = contents; // include newline in map    
+                if (ch == '\n') { break; } // switch to new line
+            }
         }
     }
     */
 }
 
-/* Creates a preliminary game starting state from scratch
- * Fills the state struct with default values
- * Takes a map as a parameter
- * Returns a usable GameState struct
- */
-fn initialize_game_state(&mapdata: &[[char; 64]; 64]) -> GameState {
-    let mut list_of_enemies: Vec<EnemyState>;
-
-    // This is not pretty. We know
-    let mut game_state = gamestate::GameState {
-        map: mapdata,
-        control_state: gamestate::ControlState::ACTION,
-        player_state: gamestate::PlayerState {
-            location: gamestate::Location {
-                x: 5,
-                y: 5,
-            },
-            health: gamestate::Health {
-                current: 3,
-                max: 5,
-            },
-            heading: 1,
-            dash_cooldown: 0,
-            attack_cooldown: 0,
-            invis_frames: 0,
-        },
-        enemy_list: list_of_enemies,
-    };
-
-    return game_state;
-}
 
 /* Where the main logic of the game happens
  * Organizes all of the separate systems of the game
