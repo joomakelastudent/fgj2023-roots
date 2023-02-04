@@ -27,9 +27,7 @@ pub struct PlayerState {
     pub location: Location,
     pub health: Health,
     pub heading: i8, // North, south, east or west
-    pub dash_available: bool,
     pub dash_cooldown: i32,
-    pub attack_available: bool,
     pub attack_cooldown: i32,
 }
 
