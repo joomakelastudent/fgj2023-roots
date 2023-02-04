@@ -12,6 +12,7 @@ use std::io::{BufRead, BufReader};
 use std::fs::File;
 use std::io;
 
+use gamestate::GameState;
 // Crate imports
 use tui;
 
@@ -35,7 +36,8 @@ probably yes. it's easier to handle one state than to handle one state and then 
  * Returns an exit status to the OS
  */
 fn main() {
-    let level = load_level();
+    
+    let mut game_state = load_level();
 
     // We need some basic info from the state to start/advance the main loop
     initialize_game_state();
@@ -47,14 +49,18 @@ fn main() {
 fn load_level() {
     //let contents = File::read_to_string("placeholder.map")
     //    .expect("Error opening map.");
-    let f = File::open("placeholder.map").expect("Unable to open file");
+    let f = File::open("placeholder.map").expect("Unable to open map");
     let file = BufReader::new(f);
+
+    let mut game_state = GameState();
 
     for line in file.lines() {
         for ch in line.expect("Unable to read line").chars() {
-            println!("Character: {}", ch);
+            game_state.map_state.data.push(ch);
         }
     }
+
+    game_state
 }
 
 fn initialize_game_state()/* -> GameState */ {
