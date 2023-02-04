@@ -80,6 +80,6 @@ fn load_map() -> String  /*[[char; 64]; 64]*/ {
  */
 fn gameloop(mut game_state: gamestate::GameState) {
     loop {
-    
+        // Preliminary comment
     }
 }
