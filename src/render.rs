@@ -28,7 +28,6 @@ pub fn render(game_state: &GameState) {
     let player_sprite = '@';
 
 
-
     //testcolours();
 }
 

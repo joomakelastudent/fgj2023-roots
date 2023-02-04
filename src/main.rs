@@ -40,9 +40,24 @@ fn main() {
  * Returns a String
  */
 fn load_map() -> Vec<char> {
-    fs::read_to_string("../../assets/placeholder.map")
-        .chars()
-        .expect("Error opening map.")
+    let contents = fs::read_to_string("../../assets/placeholder.map")
+        .expect("Error opening map.");
+    
+    let mut map_vector: Vec<char> = Vec::new();
+
+    let mut _x = 0;
+    let mut _y = 0;
+    for (i, ch) in contents.chars().enumerate() {
+        
+    }
+
+    for y in 0..63 {
+        for x in 0..63 {
+            //if else chain for padding
+
+            vec.push
+        } 
+    }
 }
 
 /* Creates a preliminary game starting state from scratch
