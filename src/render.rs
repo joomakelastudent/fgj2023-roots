@@ -33,10 +33,12 @@ pub fn render(game_state: &GameState) {
     let player_location = &game_state.player_state.location;
     let player_sprite = '@';
 
-    framebuffer[MAX_SIZE*player_location.y + player_location.x] = player_sprite;
+    framebuffer[MAX_SIZE*player_location.y + player_location.x - 1] = player_sprite;
 
+    //draw framebuffer on terminal
+    //let mut line = framebuffer.iter().cloned().collect::<String>() + "\n";
 
-    
+    println!("{}", framebuffer.iter().cloned().collect::<String>());
 }
 
 fn testcolours () {
