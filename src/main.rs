@@ -55,7 +55,7 @@ fn load_map() -> Vec<char> {
 }
 
 fn initialize_game_state(mapstring: Vec<char>) -> GameState {
-    let mut list_of_enemies: Vec<gamestate::EnemyState>;
+    let mut list_of_enemies: Vec<gamestate::EnemyState> = vec![];
 
     // This is not pretty. We know
     let mut game_state = gamestate::GameState {
@@ -74,6 +74,8 @@ fn initialize_game_state(mapstring: Vec<char>) -> GameState {
             dash_cooldown: 0,
             attack_cooldown: 0,
             invis_frames: 0,
+            movement_cooldown: 0,
+            moving: false,
         },
         enemy_list: list_of_enemies,
     };

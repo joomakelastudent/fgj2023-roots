@@ -48,6 +48,8 @@ pub struct EnemyState {
     pub species: EnemySpecies,
     pub location: Location,
     pub facing: Facing,
+    pub moving: bool,
+    pub movement_cooldown: i32,
 }
 
 pub struct AttackSquares {
