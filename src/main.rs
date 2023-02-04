@@ -33,10 +33,16 @@ probably yes. it's easier to handle one state than to handle one state and then 
  * Returns an exit status to the OS
  */
 fn main() {
-    let level = load_level();
-
+    let level = load_level("placeholder.map");
+    
     // If we get here, assume everything is good to go
     gameloop(level);
+}
+
+fn load_level(address) {
+    let contents = fs::read_to_string(file_path)
+        .expect("Error opening map.");
+    contents
 }
 
 /* Where the main logic of the game happens
