@@ -49,6 +49,10 @@ fn load_map() -> Vec<char> {
         //not pad
         map_vector.push(ch);
         line_width += 1;
+
+        if line_width == 64 {
+            map_vector.push('\n');
+        }
     }
 
     map_vector
