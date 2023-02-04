@@ -7,14 +7,19 @@
  ******************************************************************************/
 
 // Standard library imports
-use std::time::{Instant, Duration};
+use std::time::{Instant, Duration, SystemTime, UNIX_EPOCH};
 use std::fs;
 use std::thread;
 
 // External crates/dependencies
 use tui;
-use crossterm::terminal;
-
+//use std::time::Duration;
+use device_query::{DeviceQuery, DeviceState, Keycode};
+use crossterm::{
+    event::{read, poll, Event, KeyEvent},
+    terminal,
+    Result,
+};
 
 // Our own modules
 mod gameconsts;
@@ -99,15 +104,46 @@ fn set_up_terminal() {
 
 fn gameloop(mut game_state: GameState) {
     loop {
-        let tick_start = Instant::now();
-        // Start current loop timer
-        // Capture input state
-        // Resolve input (if any)
-        // Do player actions and check for their legality
-        // Run entity logic systems
-        // Check if more enemies can be spawned
-        render::render(&game_state);
-        limit_tickrate(&tick_start);
+    let tick_start = Instant::now();
+    // Start current loop timer
+    
+    //limited to one input due to time constraints
+    
+    //handling of keycode that waits i think?
+    /*
+    let code: crossterm::event::KeyCode;
+    if let Event::Key(event) = read().unwrap() {
+        code = event.code;
+    }
+    */
+
+
+    /*
+    //if poll(Duration::from_secs(0)){
+        let code: crossterm::event::KeyCode;
+        if let Event::Key(event) = read().unwrap() {
+            code = event.code;
+            println!("MINECRAFT");
+        }
+    //}
+    */
+    
+    let device_state = DeviceState::new();
+
+    let keys: Vec<Keycode> = device_state.get_keys();
+    for key in keys.iter() {
+        println!("Pressed key: {:?}", key);
+    }
+    
+
+
+    // do player actions based on code.
+    // Do player actions and check for their legality
+    // Run entity logic systems
+    // Check if more enemies can be spawned
+
+    //render::render(&game_state);
+    limit_tickrate(&tick_start);
     }
 }
 
