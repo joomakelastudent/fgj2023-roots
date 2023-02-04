@@ -38,7 +38,7 @@ fn main() {
     let mut game_state: GameState = initialize_game_state(map);
 
     // If we get here, assume everything is good to go
-    //gameloop(level);
+    gameloop(game_state);
 }
 
 fn load_map() -> String {
