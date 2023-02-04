@@ -18,14 +18,16 @@ i would assume that feeding it the entire frame.
 use crate::gamestate::GameState;
 
 //mutability is not needed for rendering
-pub fn render(game_state: &mut GameState) {
+pub fn render(game_state: GameState) {
     
     //get background
     let framebuffer = game_state.map;
     
     //draw player at location
     let player_location = game_state.player_state.location;
-    let player_sprite: char = '@';
+    let player_sprite = '@';
+
+
 
     //testcolours();
 }
