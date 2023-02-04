@@ -7,7 +7,9 @@
  ******************************************************************************/
 
 // Standard library imports
+use std::time::{Instant, Duration, SystemTime, UNIX_EPOCH};
 use std::fs;
+use std::thread;
 
 // External crates/dependencies
 use tui;
@@ -89,6 +91,7 @@ fn initialize_game_state(mapstring: Vec<char>) -> GameState {
 
 fn gameloop(mut game_state: GameState) {
     loop {
+        let tick_start = Instant::now();
         // Start current loop timer
         // Capture input state
         // Resolve input (if any)
@@ -96,8 +99,15 @@ fn gameloop(mut game_state: GameState) {
         // Run entity logic systems
         // Check if more enemies can be spawned
         render::render(&game_state);
+        limit_tickrate(&tick_start);
+    }
+}
 
-        // Check loop timer and wait if we did things too fast
-        // Basically limit fps via the system clock
+fn limit_tickrate(tick_start: &Instant) {
+    let elapsed_time = tick_start.elapsed();
+    let min_tick_duration = Duration::from_millis(1);
+    if elapsed_time < min_tick_duration {
+        let time_to_wait = min_tick_duration - elapsed_time;
+        thread::sleep(time_to_wait);
     }
 }
