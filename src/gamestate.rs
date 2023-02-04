@@ -24,7 +24,9 @@ pub enum ControlState {
 pub struct PlayerState {
     pub location: Location,
     pub health: Health,
-    pub heading: Heading,
+    pub facing: Facing,
+    pub moving: bool,
+    pub movement_cooldown: i32,
     pub dash_cooldown: i32,
     pub attack_cooldown: i32,
     pub invis_frames: i32,
@@ -45,12 +47,12 @@ pub struct EnemyState {
     pub health: Health,
     pub species: EnemySpecies,
     pub location: Location,
-    pub heading: Heading,
+    pub facing: Facing,
 }
 
 pub struct AttackSquares {
     pub location: Location,
-    pub heading: Heading,
+    pub facing: Facing,
     pub owner: Faction,
     pub damage: i8,
 }
@@ -72,7 +74,7 @@ pub enum EnemySpecies {
     RANGED,
 }
 
-pub enum Heading {
+pub enum Facing {
     NORTH,
     EAST,
     SOUTH,

@@ -69,7 +69,7 @@ fn initialize_game_state(mapstring: Vec<char>) -> GameState {
                 current: 3,
                 max: 5,
             },
-            heading: gamestate::Heading::NORTH,
+            facing: gamestate::Facing::NORTH,
             dash_cooldown: 0,
             attack_cooldown: 0,
             invis_frames: 0,
@@ -86,8 +86,10 @@ fn gameloop(mut game_state: GameState) {
         // Capture input state
         // Resolve input (if any)
         // Do player actions and check for their legality
-        // 
+        // Run entity logic systems
+        // Check if more enemies can be spawned
         render::render(&game_state);
+
         // Check loop timer and wait if we did things too fast
         // Basically limit fps via the system clock
     }
