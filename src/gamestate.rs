@@ -20,8 +20,11 @@ struct MapState {
 struct PlayerState {
     location: Location,
     health: Health,
+    direction: i8,
     dash_available: bool,
     dash_cooldown: i32,
+    attack_available: bool,
+    attack_cooldown: i32,
 }
 
 struct Location {
