@@ -57,3 +57,8 @@ pub enum EnemyAction {
     ATTACK,
     STUNNED,
 }
+
+pub enum EnemySpecies {
+    MELEE,
+    RANGED,
+}
