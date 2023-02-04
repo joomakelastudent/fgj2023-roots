@@ -15,11 +15,6 @@ use std::thread;
 use tui;
 //use std::time::Duration;
 use device_query::{DeviceQuery, DeviceState, Keycode};
-use crossterm::{
-    event::{read, poll, Event, KeyEvent},
-    terminal,
-    Result,
-};
 
 // Our own modules
 mod gameconsts;
@@ -109,17 +104,9 @@ fn gameloop(mut game_state: GameState) {
     
     //limited to one input due to time constraints
     
-    //handling of keycode that waits i think?
+    //if(pressed_keys.contains(Keycode.W)
+    let pressed_keys = get_input();
     
-    let device_state = DeviceState::new();
-
-    let keys: Vec<Keycode> = device_state.get_keys();
-    for key in keys.iter() {
-        println!("Pressed key: {:?}", key);
-    }
-    
-
-
     // do player actions based on code.
     // Do player actions and check for their legality
     // Run entity logic systems
@@ -128,6 +115,13 @@ fn gameloop(mut game_state: GameState) {
     //render::render(&game_state);
     limit_tickrate(&tick_start);
     }
+}
+
+//would do SOCD https://github.com/gilsrus/SOCD-Cleaner/blob/master/SOCDCleaner.ino
+//not enough time though
+fn get_input() -> Vec<Keycode> {
+    let device_state = DeviceState::new();
+    device_state.get_keys()
 }
 
 fn limit_tickrate(tick_start: &Instant) {
