@@ -9,14 +9,10 @@
  // List of (most) structs that are used in the game
 
 pub struct GameState {
-    pub map_state: MapState,
+    pub map: Vec<char>,
     pub control_state: ControlState,
     pub player_state: PlayerState,
     pub enemy_list: Vec<EnemyState>,
-}
-
-pub struct MapState {
-    pub data: Vec<char>,
 }
 
 pub enum ControlState {
