@@ -16,7 +16,17 @@ i would assume that feeding it the entire frame.
 */
 
 //mutability is not needed for rendering
-fn render(&game_state) {
-    let level = game_state.level;
-    
+fn render(&level, &game_state) {
+    testcolours();
+    //let level = game_state.level;
+}
+
+fn testcolours () {
+    for i 0..7{
+        let index1 = 30+i;
+        let index2 = 47-i;//perhaps bug?
+        let colour_string = f!("\x1b[{index1}m{index1} and {index2}\x1b[{index2}m");
+        
+        println!(colour_string);
+    }
 }
