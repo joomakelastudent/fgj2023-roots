@@ -1,7 +1,7 @@
 tty-throwdown
 =============
 
-Game project of team Ryhmä Rämä for the Finnish Game Jam of 2023-02-03
+Game project of team Ryhmä Rämä for the Finnish Game Jam of 2023-02-03.
 
 Concept
 -------
