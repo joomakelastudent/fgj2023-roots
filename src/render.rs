@@ -45,7 +45,7 @@ pub fn render(game_state: &GameState) {
 
     //draw framebuffer on terminal
     //let mut line = framebuffer.iter().cloned().collect::<String>() + "\n";
-
+    println!("{}", r"\b \b".repeat(64*64+64));
     println!("{}", framebuffer.iter().cloned().collect::<String>());
 }
 
