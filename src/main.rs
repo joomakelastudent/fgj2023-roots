@@ -18,8 +18,6 @@
     use gamestate::GameState;
     mod render;
 
-// Public constant declarations
-
 /*
 should level be mutable or not?
 probably yes. it's easier to handle one state than to handle one state and then the exceptions.
