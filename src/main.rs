@@ -8,9 +8,9 @@
 
 // Standard library imports
     use std::collections::HashMap;
-    use std::io::{BufRead, BufReader};
     use std::fs::File;
     use std::io;
+    use fs;
 
 use gamestate::{EnemyState, GameState};
 // external dependencies
@@ -47,32 +47,10 @@ fn main() {
     //gameloop(level);
 }
 
-fn load_map() -> [[char; 64]; 64] {
-    //let contents = File::read_to_string("placeholder.map")
-    //    .expect("Error opening map.");
-    let f = File::open("placeholder.map").expect("Unable to open map");
-    let file = BufReader::new(f);
-
-    let gamestate = initialize_game_state();
-    
-    let mut map: [[char; 64]; 64] = [[]];
-
-    for line in file.lines() {
-        let char_vec: Vec<char> = line.chars().collect();
-        for ch in char_vec {
-            
-        }
-    }
-
-
-
-    /*
-    for line in file.lines() {
-        for ch in line.expect("Unable to read line").chars() {
-            game_state.map_state.data.push(ch);
-        }
-    }
-    */
+fn load_map() -> String {
+    let contents = fs::read_to_string("placeholder.map")
+        .expect("Error opening map.");
+    contents
 }
 
 /* Creates a preliminary game starting state from scratch
