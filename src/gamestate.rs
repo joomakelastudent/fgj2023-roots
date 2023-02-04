@@ -6,7 +6,7 @@
  * Repo: https://github.com/joomakelastudent/fgj2023-roots
  ******************************************************************************/
 
- /// List of (most) structs that are used in the game
+ // List of (most) structs that are used in the game
 
 pub struct GameState {
     pub map_state: MapState,
@@ -31,6 +31,7 @@ pub struct PlayerState {
     pub heading: i8, // North, south, east or west
     pub dash_cooldown: i32,
     pub attack_cooldown: i32,
+    pub invis_frames: i32,
 }
 
 pub struct Location {
@@ -48,7 +49,7 @@ pub struct EnemyState {
     pub health: Health,
     pub species: EnemySpecies,
     pub location: Location,
-    pub heading: i8,
+    pub heading: i8, // North, south, east and west
 }
 
 pub enum EnemyAction {
