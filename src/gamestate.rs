@@ -9,7 +9,7 @@
  // List of (most) structs that are used in the game
 
 pub struct GameState {
-    pub map: [[char; 64]; 64],
+    pub map: String,
     pub control_state: ControlState,
     pub player_state: PlayerState,
     pub enemy_list: Vec<EnemyState>,

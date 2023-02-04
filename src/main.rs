@@ -52,12 +52,12 @@ fn load_map() -> String {
  * Takes a map as a parameter
  * Returns a usable GameState struct
  */
-fn initialize_game_state(&mapdata: &[[char; 64]; 64]) -> GameState {
+fn initialize_game_state(&mapstring: &String) -> GameState {
     let mut list_of_enemies: Vec<gamestate::EnemyState>;
 
     // This is not pretty. We know
     let mut game_state = gamestate::GameState {
-        map: mapdata,
+        map: mapstring,
         control_state: gamestate::ControlState::ACTION,
         player_state: gamestate::PlayerState {
             location: gamestate::Location {
