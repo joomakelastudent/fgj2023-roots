@@ -18,7 +18,7 @@ i would assume that feeding it the entire frame.
 use crate::gamestate::GameState;
 
 //mutability is not needed for rendering
-pub fn render(game_state: &GameState) {
+pub fn render(game_state: &mut GameState) {
     
     //get background
     let framebuffer = game_state.map;
