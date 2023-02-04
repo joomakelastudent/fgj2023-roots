@@ -24,7 +24,7 @@ pub enum ControlState {
 pub struct PlayerState {
     pub location: Location,
     pub health: Health,
-    pub heading: i8, // North, south, east or west
+    pub heading: i8, // 1 = north, 2 = east...
     pub dash_cooldown: i32,
     pub attack_cooldown: i32,
     pub invis_frames: i32,
@@ -45,7 +45,7 @@ pub struct EnemyState {
     pub health: Health,
     pub species: EnemySpecies,
     pub location: Location,
-    pub heading: i8, // North, south, east and west
+    pub heading: i8, // 1 = north, 2 = east...
 }
 
 pub enum EnemyAction {

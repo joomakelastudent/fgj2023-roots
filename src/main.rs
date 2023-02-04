@@ -12,6 +12,7 @@
     use std::fs::File;
     use std::io;
 
+use gamestate::{EnemyState, GameState};
 // external dependencies
     use tui;
 
@@ -40,7 +41,7 @@ fn main() {
     
     let map = load_map();
     // We need some basic info from the state to start/advance the main loop
-    let mut game_state = initialize_game_state(&map);
+    let mut game_state: GameState = initialize_game_state(&map);
 
     // If we get here, assume everything is good to go
     //gameloop(level);
@@ -74,21 +75,34 @@ fn load_map() -> [[char; 64]; 64] {
     */
 }
 
-/* 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
+/* Creates a preliminary game starting state from scratch
+ * Fills the state struct with default values
+ * Takes a map as a parameter
+ * Returns a usable GameState struct
  */
-fn initialize_game_state(&mapdata: &[[char; 64]; 64]) {
+fn initialize_game_state(&mapdata: &[[char; 64]; 64]) -> GameState {
+    let mut empty_enemy_list: Vec<EnemyState>;
     let mut game_state = gamestate::GameState {
         map: mapdata,
         control_state: gamestate::ControlState::ACTION,
-        
-    }
+        player_state: gamestate::PlayerState {
+            location: gamestate::Location {
+                x: 5,
+                y: 5,
+            },
+            health: gamestate::Health {
+                current: 3,
+                max: 5,
+            },
+            heading: 1,
+            dash_cooldown: 0,
+            attack_cooldown: 0,
+            invis_frames: 0,
+        },
+        enemy_list: empty_enemy_list,
+    };
+
+    return game_state;
 }
 
 /* Where the main logic of the game happens
