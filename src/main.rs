@@ -39,8 +39,9 @@ fn main() {
  * Takes no parameters
  * Returns a String
  */
-fn load_map() -> String {
+fn load_map() -> Vec<char> {
     fs::read_to_string("../../assets/placeholder.map")
+        .chars()
         .expect("Error opening map.")
 }
 
@@ -49,7 +50,7 @@ fn load_map() -> String {
  * Takes a map as a parameter
  * Returns a usable GameState struct
  */
-fn initialize_game_state(mapstring: String) -> GameState {
+fn initialize_game_state(mapstring: Vec<char>) -> GameState {
     let mut list_of_enemies: Vec<gamestate::EnemyState>;
 
     // This is not pretty. We know
