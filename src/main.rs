@@ -86,7 +86,8 @@ fn initialize_game_state(mapstring: Vec<char>) -> GameState {
  */
 fn gameloop(mut game_state: GameState) {
     loop {
-        
+        // Capture input state
+        // 
         render::render(&game_state);
     }
 }
