@@ -7,21 +7,15 @@
  ******************************************************************************/
 
 // Standard library imports
-    use std::fs;
+use std::fs;
 
-// external dependencies
-    use tui;
+// External crates/dependencies
+use tui;
 
-// our modules
-    //use crate::gamestate::GameState;
-    mod gamestate;
-    use gamestate::GameState;
-    mod render;
-
-/*
-should level be mutable or not?
-probably yes. it's easier to handle one state than to handle one state and then the exceptions.
-*/
+// Our own modules
+mod gamestate;
+use gamestate::GameState;
+mod render;
 
 /* Where the preliminary setup for the game happens
  * Mostly does one-time work that the main loop requires to start
@@ -41,6 +35,10 @@ fn main() {
     gameloop(game_state);
 }
 
+/* Loads a map-file from disk to memory
+ * Takes no parameters
+ * Returns a String
+ */
 fn load_map() -> String {
     fs::read_to_string("../../assets/placeholder.map")
         .expect("Error opening map.")
@@ -88,6 +86,6 @@ fn initialize_game_state(mapstring: String) -> GameState {
 fn gameloop(mut game_state: GameState) {
     loop {
         
-        render::render(&mut game_state);
+        render::render(&game_state);
     }
 }
