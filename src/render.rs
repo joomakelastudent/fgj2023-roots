@@ -15,20 +15,23 @@ i would assume that feeding it the entire frame.
     would produce the least stupid render bugs.
 */
 
+use game_consts;
+
 use crate::gamestate::GameState;
 
 //mutability is not needed for rendering
 pub fn render(game_state: &GameState) {
     
-    //get background
-    let framebuffer = game_state.map;
+    //background layer of framebuffer is the map 
+    let framebuffer = &game_state.map;
     
     //draw player at location
-    let player_location = game_state.player_state.location;
+    let player_location = &game_state.player_state.location;
     let player_sprite = '@';
 
+    framebuffer[64*player_location.y + player_location.x] = player_sprite;
 
-    //testcolours();
+    
 }
 
 fn testcolours () {

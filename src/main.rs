@@ -33,8 +33,7 @@ fn load_map() -> Vec<char> {
     let mut map_vector: Vec<char> = Vec::new();
 
     let mut line_width = 0;
-
-    //for (i, ch) in contents.chars().enumerate() {
+    
     for ch in contents.chars() {   
         //pad the rest to 64 width when newline is found
 
