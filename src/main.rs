@@ -25,5 +25,5 @@ fn gameloop() {
     //OOP is faster and better at small scale
 
     //render(game_state)
-    } while (true)
+    } while (true);
 }
