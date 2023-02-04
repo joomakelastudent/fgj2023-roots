@@ -13,6 +13,8 @@ use std::thread;
 
 // External crates/dependencies
 use tui;
+use crossterm::terminal;
+
 
 // Our own modules
 mod gameconsts;
@@ -25,6 +27,8 @@ fn main() {
     let map = load_map();
     // We need some basic info from the state to start/advance the main loop
     let mut game_state: GameState = initialize_game_state(map);
+
+    set_up_terminal();
 
     gameloop(game_state);
 }
@@ -87,6 +91,10 @@ fn initialize_game_state(mapstring: Vec<char>) -> GameState {
     };
 
     return game_state;
+}
+
+fn set_up_terminal() {
+
 }
 
 fn gameloop(mut game_state: GameState) {
