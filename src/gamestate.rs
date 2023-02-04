@@ -46,7 +46,7 @@ pub struct Health {
 pub struct EnemyState {
     pub action: EnemyAction,
     pub health: Health,
-    pub species: EnemySpecies,
+    //pub species: EnemySpecies,
     pub location: Location,
     pub heading: i8,
 }

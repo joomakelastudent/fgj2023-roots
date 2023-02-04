@@ -15,10 +15,9 @@ i would assume that feeding it the entire frame.
     would produce the least stupid render bugs.
 */
 
-mod gamestate;
 
 //mutability is not needed for rendering
-fn render(&level: [char], &game_state: GameState) {
+fn render(/*&level: [char], &game_state: GameState*/) {
     testcolours();
     //let level = game_state.level;
 }
@@ -28,7 +27,7 @@ fn testcolours () {
         let index1 = 30+i;
         let index2 = 47-i;//perhaps bug?
         //let colour_string = f!("\x1b[{index1}m{index1} and {index2}\x1b[{index2}m").to_string();
-        colour_string = format!("\x1b[{}m{} and {}\x1b[{}m", index1,index1,index2,index2);
+        let colour_string = format!("\x1b[{}m{} and {}\x1b[{}m", index1,index1,index2,index2);
         
         println!("{}", colour_string);
     }

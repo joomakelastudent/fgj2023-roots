@@ -70,8 +70,4 @@ fn initialize_game_state()/* -> GameState */ {
  */
 fn gameloop() {
     
-
-    loop {
-        render(, GameState);
-    }
 }
