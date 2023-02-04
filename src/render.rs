@@ -21,7 +21,7 @@ use crate::gamestate::GameState;
 //mutability is not needed for rendering
 pub fn render(game_state: &GameState) {
     
-    //background layer of framebuffer is the map
+    //done cause i couldn't use it without 
     let mut framebuffer: Vec<char> = vec![];
     for ch in &game_state.map {
         framebuffer.push(*ch);
@@ -36,6 +36,7 @@ pub fn render(game_state: &GameState) {
     framebuffer[MAX_SIZE*player_location.y + player_location.x] = player_sprite;
 
 
+    
 }
 
 fn testcolours () {
