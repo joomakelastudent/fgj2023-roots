@@ -81,7 +81,7 @@ fn load_map() -> [[char; 64]; 64] {
  * Returns a usable GameState struct
  */
 fn initialize_game_state(&mapdata: &[[char; 64]; 64]) -> GameState {
-    let mut empty_enemy_list: Vec<EnemyState>;
+    let mut list_of_enemies: Vec<EnemyState>;
     let mut game_state = gamestate::GameState {
         map: mapdata,
         control_state: gamestate::ControlState::ACTION,
@@ -99,7 +99,7 @@ fn initialize_game_state(&mapdata: &[[char; 64]; 64]) -> GameState {
             attack_cooldown: 0,
             invis_frames: 0,
         },
-        enemy_list: empty_enemy_list,
+        enemy_list: list_of_enemies,
     };
 
     return game_state;
