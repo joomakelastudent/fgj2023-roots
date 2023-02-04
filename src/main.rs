@@ -89,6 +89,6 @@ fn initialize_game_state(mapstring: String) -> GameState {
 fn gameloop(mut game_state: GameState) {
     loop {
         
-        // Preliminary comment
+        render::render(&mut game_state);
     }
 }
