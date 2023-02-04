@@ -13,6 +13,7 @@ use std::fs;
 use tui;
 
 // Our own modules
+mod gameconsts;
 mod gamestate;
 use gamestate::GameState;
 mod render;

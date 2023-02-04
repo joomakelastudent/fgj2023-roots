@@ -33,8 +33,8 @@ pub struct PlayerState {
 }
 
 pub struct Location {
-    pub x: i32,
-    pub y: i32,
+    pub x: usize,
+    pub y: usize,
 }
 
 pub struct Health {
