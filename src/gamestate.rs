@@ -16,7 +16,7 @@ pub struct GameState {
 }
 
 pub struct MapState {
-    pub data: String,
+    pub data: Vec<char>,
 }
 
 pub enum ControlState {
@@ -44,14 +44,14 @@ pub struct Health {
 }
 
 pub struct EnemyState {
-    pub behavior: EnemyBehavior,
+    pub action: EnemyAction,
     pub health: Health,
     pub species: EnemySpecies,
     pub location: Location,
     pub heading: i8,
 }
 
-pub enum EnemyBehavior {
+pub enum EnemyAction {
     IDLE,
     MOVE_TO (Location),
     ATTACK,
