@@ -29,7 +29,7 @@ pub fn render(game_state: &GameState) {
     let player_location = &game_state.player_state.location;
     let player_sprite = '@';
 
-    framebuffer[64*player_location.y + player_location.x] = player_sprite;
+    framebuffer[game_consts.MAX_SIZE*player_location.y + player_location.x] = player_sprite;
 
     
 }

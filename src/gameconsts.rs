@@ -1,1 +1,1 @@
-pub const MAXSIZE: i32 = 64;
+pub const MAX_SIZE: i32 = 64;
