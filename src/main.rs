@@ -110,23 +110,6 @@ fn gameloop(mut game_state: GameState) {
     //limited to one input due to time constraints
     
     //handling of keycode that waits i think?
-    /*
-    let code: crossterm::event::KeyCode;
-    if let Event::Key(event) = read().unwrap() {
-        code = event.code;
-    }
-    */
-
-
-    /*
-    //if poll(Duration::from_secs(0)){
-        let code: crossterm::event::KeyCode;
-        if let Event::Key(event) = read().unwrap() {
-            code = event.code;
-            println!("MINECRAFT");
-        }
-    //}
-    */
     
     let device_state = DeviceState::new();
 
