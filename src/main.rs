@@ -42,9 +42,8 @@ fn main() {
 }
 
 fn load_map() -> String {
-    let contents = fs::read_to_string("../../assets/placeholder.map")
-        .expect("Error opening map.");
-    contents
+    fs::read_to_string("../../assets/placeholder.map")
+        .expect("Error opening map.")
 }
 
 /* Creates a preliminary game starting state from scratch
