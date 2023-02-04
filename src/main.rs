@@ -8,7 +8,8 @@
 
 // Standard library imports
 use std::collections::HashMap;
-use std::fs;
+use std::io::{BufRead, BufReader};
+use std::fs::File;
 use std::io;
 
 // Crate imports
@@ -16,6 +17,7 @@ use tui;
 
 // Local file imports
 mod render;
+mod gamestate;
 
 // Public constant declarations
 
@@ -34,15 +36,29 @@ probably yes. it's easier to handle one state than to handle one state and then 
  */
 fn main() {
     let level = load_level();
-    
+
+    // We need some basic info from the state to start/advance the main loop
+    initialize_game_state();
+
     // If we get here, assume everything is good to go
-    gameloop(level);
+    //gameloop(level);
 }
 
 fn load_level() {
-    let contents = fs::read_to_string("placeholder.map")
-        .expect("Error opening map.");
-    contents
+    //let contents = File::read_to_string("placeholder.map")
+    //    .expect("Error opening map.");
+    let f = File::open("placeholder.map").expect("Unable to open file");
+    let file = BufReader::new(f);
+
+    for line in file.lines() {
+        for ch in line.expect("Unable to read line").chars() {
+            println!("Character: {}", ch);
+        }
+    }
+}
+
+fn initialize_game_state()/* -> GameState */ {
+    //GameState::GameState()
 }
 
 /* Where the main logic of the game happens
@@ -53,13 +69,9 @@ fn load_level() {
  * Returns nothing
  */
 fn gameloop() {
-    // We need some basic info from the state to start/advance the main loop
-    initialize_game_state(&mut game_state);
+    
 
     loop {
-        // Take input from the player
-        // let input_state = get_input_state();
-
-        // 
+        render(, GameState);
     }
 }
