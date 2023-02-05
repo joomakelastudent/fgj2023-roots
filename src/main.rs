@@ -106,16 +106,11 @@ fn set_up_terminal() {
 fn gameloop(mut game_state: GameState) {
     loop {
     let tick_start = Instant::now();
-    // Start current loop timer
     
     //limited to one input due to time constraints
-
     let device_state = DeviceState::new();
     let pressed_keys = device_state.get_keys();
     
-    //let mouse: MouseState = device_state.get_mouse();
-    //println!("Current Mouse Coordinates: {:?}", mouse.coords);
-
     if game_state.player_state.movement_cooldown <= 0 {
         if pressed_keys.contains(&Keycode::W) {
             game_state.player_state.location.y -= 1;
@@ -163,7 +158,6 @@ fn gameloop(mut game_state: GameState) {
     
     game_state.enemy_spawner.cooldown -= 1;
     
-    
     //update enemy state.
     for mut enemy in &mut game_state.enemy_list {
 
@@ -184,22 +178,8 @@ fn gameloop(mut game_state: GameState) {
         
         enemy.movement_cooldown -= 1;
     }
-    
-
-    //println!("{}",game_state.enemy_list.len());
 
     render::render(&game_state);
-
-    //if player touches enemy, end game.
-    /*
-    for mut enemy in &mut game_state.enemy_list {
-        let player = game_state.player_state;
-
-        if (enemy.location.x == player.location.x) & (enemy.location.y == player.location.x){
-            end_game();
-        }
-    }
-    */
 
     limit_tickrate(&tick_start);
     }
