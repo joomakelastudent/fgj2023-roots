@@ -216,7 +216,6 @@ fn make_random_enemy_state() -> EnemyState {
 }
 
 fn end_game() {
-    //todo joonas survived for some time
     std::process::exit(0);
 }
 
@@ -227,5 +226,4 @@ fn limit_tickrate(tick_start: &Instant) {
         let time_to_wait = min_tick_duration - elapsed_time;
         thread::sleep(time_to_wait);
     }
-    //todo joonas laita peli pyörimään aina nopeemmin kun aikaa on menny.
 }
