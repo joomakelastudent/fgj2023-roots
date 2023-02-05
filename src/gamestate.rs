@@ -16,6 +16,7 @@ pub struct GameState {
     pub enemy_spawner:EnemySpawner,
 }
 
+// Is the game paused, in a menu or playable normally?
 pub enum ControlState {
     MENU,
     PAUSED,

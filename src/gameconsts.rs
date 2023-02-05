@@ -6,4 +6,5 @@
  * Repo: https://github.com/joomakelastudent/fgj2023-roots
  ******************************************************************************/
 
+ // Max width/height of the lines/columns rendered to a terminal
 pub const MAX_SIZE: usize = 64;
