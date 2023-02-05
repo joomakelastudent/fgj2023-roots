@@ -114,19 +114,19 @@ fn gameloop(mut game_state: GameState) {
     if game_state.player_state.movement_cooldown <= 0 {
         if pressed_keys.contains(&Keycode::W) {
             game_state.player_state.location.y -= 1;
-            game_state.player_state.movement_cooldown = 20;
+            game_state.player_state.movement_cooldown = 30;
         }
         else if pressed_keys.contains(&Keycode::S) {
             game_state.player_state.location.y += 1;
-            game_state.player_state.movement_cooldown = 20;
+            game_state.player_state.movement_cooldown = 30;
         }
         if pressed_keys.contains(&Keycode::A) {
                 game_state.player_state.location.x -= 2;
-                game_state.player_state.movement_cooldown = 20;
+                game_state.player_state.movement_cooldown = 30;
         }
         else if pressed_keys.contains(&Keycode::D) {
             game_state.player_state.location.x += 2;
-            game_state.player_state.movement_cooldown = 20;
+            game_state.player_state.movement_cooldown = 30;
         }
     }
 
