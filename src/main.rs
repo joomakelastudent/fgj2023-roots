@@ -178,7 +178,7 @@ fn gameloop(mut game_state: GameState) {
             }
         }
 
-        if (enemy.location.x == game_state.player_state.location.x) & (enemy.location.y == game_state.player_state.location.x){
+        if (enemy.location.x == game_state.player_state.location.x) & (enemy.location.y == game_state.player_state.location.y){
             end_game();
         }
         
