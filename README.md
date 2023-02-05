@@ -6,13 +6,7 @@ Game project of team Ryhmä Rämä for the Finnish Game Jam of 2023-02-03.
 Concept
 -------
 
-### Target
-
-We aim for a simplistic hack and slash -type character-action game with
-fast-paced, unforgiving and satisfying combat. Enemies fold like cartboard,
-but so does the hero. With everybody throwing around lethal moves, dashing,
-dodging and ruthlessness are the name of the game. Isolate and vanquish your
-enemies before they surround and overwhelm you.
+You are in the woods and snakes are out to get you. Dodge them and survive.
 
 ### Connection to GGJ's theme
 
