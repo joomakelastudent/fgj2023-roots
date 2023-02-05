@@ -177,6 +177,10 @@ fn gameloop(mut game_state: GameState) {
                 enemy.movement_cooldown = 15;
             }
         }
+
+        if (enemy.location.x == game_state.player_state.location.x) & (enemy.location.y == game_state.player_state.location.x){
+            end_game();
+        }
         
         enemy.movement_cooldown -= 1;
     }
@@ -187,7 +191,7 @@ fn gameloop(mut game_state: GameState) {
     render::render(&game_state);
 
     //if player touches enemy, end game.
-    
+    /*
     for mut enemy in &mut game_state.enemy_list {
         let player = game_state.player_state;
 
@@ -195,6 +199,7 @@ fn gameloop(mut game_state: GameState) {
             end_game();
         }
     }
+    */
 
     limit_tickrate(&tick_start);
     }
