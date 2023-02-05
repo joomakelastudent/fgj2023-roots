@@ -217,7 +217,7 @@ fn make_random_enemy_state() -> EnemyState {
 
 fn end_game() {
     //todo joonas survived for some time
-    std::process::exit(1);
+    std::process::exit(0);
 }
 
 fn limit_tickrate(tick_start: &Instant) {
