@@ -60,7 +60,6 @@ pub fn render(game_state: &GameState) {
 
         //else draw background
         framebuffer.push(ch);
-        
     }
     
     /*

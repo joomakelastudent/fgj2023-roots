@@ -168,10 +168,13 @@ fn gameloop(mut game_state: GameState) {
         
         if (enemy.movement_cooldown < 0) {
             if enemy.location.x == 2 {
-                
+                enemy.location.x = 1000;
             }
-            enemy.location.x -= 1;
-            enemy.movement_cooldown = 15;
+            else
+            {
+                enemy.location.x -= 1;
+                enemy.movement_cooldown = 15;
+            }
         }
         
         enemy.movement_cooldown -= 1;
