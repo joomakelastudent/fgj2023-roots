@@ -12,14 +12,17 @@ use std::fs;
 use std::thread;
 
 // External crates/dependencies
-use tui;
+//use termios::{Termios, TCSANOW, ECHO, ICANON, tcsetattr};
+
+
 //use std::time::Duration;
-use device_query::{DeviceQuery, DeviceState, Keycode};
+use device_query::{DeviceQuery, DeviceState, MouseState, Keycode};
+use rand::Rng;
 
 // Our own modules
 mod gameconsts;
 mod gamestate;
-use gamestate::GameState;
+use gamestate::{GameState, EnemyState};
 mod render;
 
 fn main() {
@@ -88,6 +91,9 @@ fn initialize_game_state(mapstring: Vec<char>) -> GameState {
             moving: false,
         },
         enemy_list: list_of_enemies,
+        enemy_spawner: gamestate::EnemySpawner {
+            cooldown: 100,
+        },
     };
 
     return game_state;
@@ -103,32 +109,115 @@ fn gameloop(mut game_state: GameState) {
     // Start current loop timer
     
     //limited to one input due to time constraints
-    
-    //if(pressed_keys.contains(Keycode.W)
-    let pressed_keys = get_input();
-    
-    // do player actions based on code.
-    // Do player actions and check for their legality
-    // Run entity logic systems
-    // Check if more enemies can be spawned
 
-    //render::render(&game_state);
+    let device_state = DeviceState::new();
+    let pressed_keys = device_state.get_keys();
+    
+    //let mouse: MouseState = device_state.get_mouse();
+    //println!("Current Mouse Coordinates: {:?}", mouse.coords);
+
+    if game_state.player_state.movement_cooldown <= 0 {
+        if pressed_keys.contains(&Keycode::W) {
+            game_state.player_state.location.y -= 1;
+            game_state.player_state.movement_cooldown = 20;
+        }
+        else if pressed_keys.contains(&Keycode::S) {
+            game_state.player_state.location.y += 1;
+            game_state.player_state.movement_cooldown = 20;
+        }
+        if pressed_keys.contains(&Keycode::A) {
+                game_state.player_state.location.x -= 2;
+                game_state.player_state.movement_cooldown = 20;
+        }
+        else if pressed_keys.contains(&Keycode::D) {
+            game_state.player_state.location.x += 2;
+            game_state.player_state.movement_cooldown = 20;
+        }
+    }
+
+
+    game_state.player_state.movement_cooldown -= 1;
+
+    let mut x = game_state.player_state.location.x;
+    let mut y = game_state.player_state.location.y;
+    
+    //limit player bounds
+    x = x.max(3);
+    x = x.min(39);
+
+    y = y.max(1);
+    y = y.min(15);
+
+    //update player bounds to gamestate
+    game_state.player_state.location.x = x;
+    game_state.player_state.location.y = y;
+
+    
+    //spawn enemies on the right side of the screen for the player to dodge
+    
+    if game_state.enemy_spawner.cooldown < 1 {
+        game_state.enemy_spawner.cooldown = 100;
+        let mut new_enemy = vec![make_random_enemy_state()];
+        game_state.enemy_list.append(&mut new_enemy);
+    }
+    
+    game_state.enemy_spawner.cooldown -= 1;
+    //update enemy state.
+    
+    for mut enemy in &mut game_state.enemy_list {
+        
+        if (enemy.movement_cooldown < 0) {
+            if enemy.location.x == 2 {
+                
+            }
+            enemy.location.x -= 1;
+            enemy.movement_cooldown = 15;
+        }
+        
+        enemy.movement_cooldown -= 1;
+    }
+    
+
+    //println!("{}",game_state.enemy_list.len());
+
+    render::render(&game_state);
+
+    //if player touches enemy, end game.
+    /*
+    for enemy in game_state.enemy_list {
+        let player = game_state.player_state;
+
+        if (enemy.location.x == player.location.x) & (enemy.location.y == player.location.x){
+            end_game(&game_state);
+        }
+    }
+    */
+
     limit_tickrate(&tick_start);
     }
 }
 
-//would do SOCD https://github.com/gilsrus/SOCD-Cleaner/blob/master/SOCDCleaner.ino
-//not enough time though
-fn get_input() -> Vec<Keycode> {
-    let device_state = DeviceState::new();
-    device_state.get_keys()
+fn make_random_enemy_state() -> EnemyState {
+    EnemyState {
+        location: gamestate::Location {
+            x: 40,
+            y: rand::thread_rng().gen_range(1..=15),// random y
+        },
+        movement_cooldown: 15,
+    }
+}
+
+fn end_game(game_state: &GameState) {
+    //todo joonas survived for some time
+    std::process::exit(1);
 }
 
 fn limit_tickrate(tick_start: &Instant) {
     let elapsed_time = tick_start.elapsed();
-    let min_tick_duration = Duration::from_millis(1);
+    let min_tick_duration = Duration::from_millis(3);
     if elapsed_time < min_tick_duration {
         let time_to_wait = min_tick_duration - elapsed_time;
         thread::sleep(time_to_wait);
     }
+    //todo joonas laita peli pyörimään aina nopeemmin kun aikaa on menny.
 }

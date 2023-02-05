@@ -29,25 +29,63 @@ use crate::gamestate::GameState;
 //mutability is not needed for rendering
 pub fn render(game_state: &GameState) {
     
-    //done cause i couldn't use it without 
+    //done, cause i couldn't copy it properly for some reason
+
     let mut framebuffer: Vec<char> = vec![];
-    for ch in &game_state.map {
-        framebuffer.push(*ch);
+    let player_location = &game_state.player_state.location;
+    
+    //todo joonas pushaa framebufferiin jotenkin selviydytty aika.
+
+    let mut frame_x: usize = 0;
+    let mut frame_y: usize = 0;
+    for &ch in &game_state.map {
+        frame_x += 1;
+        if ch == '\n' {
+            frame_x = 0;
+            frame_y += 1;
+        }
+
+        //draw player
+        if (frame_x == player_location.x) & (frame_y == player_location.y) {
+            framebuffer.push('@');
+            continue;
+        }
+
+        //else draw enemies
+        for enemy in &game_state.enemy_list {
+            if (frame_x == enemy.location.x) & (frame_y == enemy.location.y) {
+                framebuffer.push('S');
+            }
+        }
+
+        //else draw background
+        framebuffer.push(ch);
+        
     }
     
-    //let mut framebuffer = &game_state.map;
-    
-    //draw player at location
+    /*
+    reset_cursor();
+
     let player_location = &game_state.player_state.location;
     let player_sprite = '@';
 
     framebuffer[MAX_SIZE*player_location.y + player_location.x - 1] = player_sprite;
+    */
 
-    //draw framebuffer on terminal
-    //let mut line = framebuffer.iter().cloned().collect::<String>() + "\n";
-    println!("{}", r"\b \b".repeat(64*64+64));
+    //
+    reset_cursor();
+    //print UI
+    //println!("\tPLAYER at {}:{}", player_location.x, player_location.y);
+    //print framebuffer
     println!("{}", framebuffer.iter().cloned().collect::<String>());
 }
+
+fn reset_cursor() {
+    print!("{esc}[2J{esc}[1;1H", esc = 27 as char);
+}
+
+//27 desimaalina
+//heksana 33
 
 fn testcolours () {
     for i in 0..7{

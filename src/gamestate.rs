@@ -13,6 +13,7 @@ pub struct GameState {
     pub control_state: ControlState,
     pub player_state: PlayerState,
     pub enemy_list: Vec<EnemyState>,
+    pub enemy_spawner:EnemySpawner,
 }
 
 pub enum ControlState {
@@ -43,13 +44,17 @@ pub struct Health {
 }
 
 pub struct EnemyState {
-    pub action: EnemyAction,
-    pub health: Health,
-    pub species: EnemySpecies,
+    //pub action: EnemyAction,
+    //pub health: Health,
+    //pub species: EnemySpecies,
     pub location: Location,
-    pub facing: Facing,
-    pub moving: bool,
+    //pub facing: Facing,
+    //pub moving: bool,
     pub movement_cooldown: i32,
+}
+
+pub struct EnemySpawner {
+    pub cooldown: usize,
 }
 
 pub struct AttackSquares {
