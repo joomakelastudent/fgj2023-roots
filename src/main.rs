@@ -26,7 +26,7 @@ use gamestate::{GameState, EnemyState};
 mod render;
 
 fn main() {
-    
+    print!("{esc}[2J{esc}[1;1H", esc = 27 as char);
     let map = load_map();
     // We need some basic info from the state to start/advance the main loop
     let mut game_state: GameState = initialize_game_state(map);
