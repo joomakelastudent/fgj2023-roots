@@ -52,13 +52,17 @@ pub fn render(game_state: &GameState) {
         }
 
         //else draw enemies
+        let mut drew_enemy = false;
         for enemy in &game_state.enemy_list {
             if (frame_x == enemy.location.x) & (frame_y == enemy.location.y) {
                 framebuffer.push('S');
+                drew_enemy = true;
+                break;
             }
         }
 
-        //else draw background
+        if drew_enemy { continue; }
+
         framebuffer.push(ch);
     }
     
@@ -80,7 +84,7 @@ pub fn render(game_state: &GameState) {
 }
 
 fn reset_cursor() {
-    print!("{esc}[2J{esc}[1;1H", esc = 27 as char);
+    print!("{esc}[3J{esc}[1;1H", esc = 27 as char);
 }
 
 //27 desimaalina

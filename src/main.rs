@@ -162,13 +162,14 @@ fn gameloop(mut game_state: GameState) {
     }
     
     game_state.enemy_spawner.cooldown -= 1;
-    //update enemy state.
     
+    
+    //update enemy state.
     for mut enemy in &mut game_state.enemy_list {
-        
+
         if (enemy.movement_cooldown < 0) {
             if enemy.location.x == 2 {
-                enemy.location.x = 1000;
+                enemy.location.x = 40;
             }
             else
             {
@@ -186,15 +187,14 @@ fn gameloop(mut game_state: GameState) {
     render::render(&game_state);
 
     //if player touches enemy, end game.
-    /*
-    for enemy in game_state.enemy_list {
+    
+    for mut enemy in &mut game_state.enemy_list {
         let player = game_state.player_state;
 
         if (enemy.location.x == player.location.x) & (enemy.location.y == player.location.x){
-            end_game(&game_state);
+            end_game();
         }
     }
-    */
 
     limit_tickrate(&tick_start);
     }
@@ -210,7 +210,7 @@ fn make_random_enemy_state() -> EnemyState {
     }
 }
 
-fn end_game(game_state: &GameState) {
+fn end_game() {
     //todo joonas survived for some time
     std::process::exit(1);
 }
