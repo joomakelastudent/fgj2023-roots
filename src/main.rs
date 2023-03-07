@@ -7,7 +7,7 @@
  ******************************************************************************/
 
 // Standard library imports
-use std::time::{Instant, Duration, SystemTime, UNIX_EPOCH};
+use std::time::{Instant, Duration};
 use std::fs;
 use std::thread;
 
@@ -16,50 +16,51 @@ use std::thread;
 
 
 //use std::time::Duration;
-use device_query::{DeviceQuery, DeviceState, MouseState, Keycode};
+use device_query::{DeviceQuery, DeviceState, Keycode};
 use rand::Rng;
 
 // Our own modules
 mod gameconsts;
 mod gamestate;
-use gamestate::{GameState, EnemyState};
+use gamestate::{GameState, MoverState};
 mod render;
 
 fn main() {
     print!("{esc}[2J{esc}[1;1H", esc = 27 as char);
     let map = load_map();
     // We need some basic info from the state to start/advance the main loop
-    let mut game_state: GameState = initialize_game_state(map);
+    let gamestate: GameState = gamestate::initialize_gamestate(map);
 
-    set_up_terminal();
-
-    gameloop(game_state);
+    gameloop(gamestate);
 }
 
+// doesn't need to be fast cause it only happens once per run
 fn load_map() -> Vec<char> {
     let contents = fs::read_to_string("./assets/placeholder.map")
-        .expect("Error opening map.");
-    
+        .expect("Error opening map."); 
+
     let mut map_vector: Vec<char> = Vec::new();
+    
+    //alternative faster data structure:
+    //let mut map_array = [[false; gameconsts::MAX_WIDTH]; gameconsts::MAX_HEIGHT];
 
     let mut line_width = 0;
     
-    for ch in contents.chars() {   
-        //pad the rest to 64 width when newline is found
+    //hard to read and might be error prone, but kinda works for now
+    for ch in contents.chars() {
 
         if ch == '\n' {
-            while line_width <= 64 {
+            while line_width <= gameconsts::MAX_FRAME_WIDTH {
                 map_vector.push(' ');
                 line_width += 1;
             }
             line_width = 0;
         }
 
-        //not pad
         map_vector.push(ch);
         line_width += 1;
 
-        if line_width == 64 {
+        if line_width == gameconsts::MAX_FRAME_WIDTH {
             map_vector.push('\n');
         }
     }
@@ -67,43 +68,85 @@ fn load_map() -> Vec<char> {
     map_vector
 }
 
-fn initialize_game_state(mapstring: Vec<char>) -> GameState {
-    let mut list_of_enemies: Vec<gamestate::EnemyState> = vec![];
 
-    // This is not pretty. We know
-    let mut game_state = gamestate::GameState {
-        map: mapstring,
-        control_state: gamestate::ControlState::ACTION,
-        player_state: gamestate::PlayerState {
-            location: gamestate::Location {
-                x: 5,
-                y: 5,
-            },
-            health: gamestate::Health {
-                current: 3,
-                max: 5,
-            },
-            facing: gamestate::Facing::NORTH,
-            dash_cooldown: 0,
-            attack_cooldown: 0,
-            invis_frames: 0,
-            movement_cooldown: 0,
-            moving: false,
-        },
-        enemy_list: list_of_enemies,
-        enemy_spawner: gamestate::EnemySpawner {
-            cooldown: 100,
-        },
-    };
 
-    return game_state;
+/*
+fn load_map_2() -> [[char; 64]; 64] {
+    let contents = fs::read_to_string("./assets/placeholder.map")
+        .expect("Error opening map.");
+
+    //remove newlines -> pad and add newlines
+
+    let something = [[' '; 64]; 64];
+
+    let map_vector_2: Vec<String> = contents
+        .lines()
+        .map(|unpadded| format!("{unpadded:64}"))
+        .join("\n");
+        //.collect();
+
+    for y in 0..=63 {
+        for x in 0..=63 {
+            let result = map_vector_2.get(y).chars()[x];
+            something[y][x] = match
+            
+        }
+        
+    }
+
+    array[['c'; 64]; 64]
+}
+*/
+
+// +x and -x leads to no movement
+// no movement takes no stamina
+// always called for frame consistency reasons
+
+fn update_player_location(pressed_keys: Vec<Keycode>, player: MoverState) {
+    
+    //used to check if the player moved
+    let original_location = (player.x, player.y);
+    
+    struct Movement {x:i32, y:i32}
+    let movement = Movement {x:0,y:0};
+
+    //get wanted movement from pressed keys
+    {
+        if pressed_keys.contains(&Keycode::W) { movement.y -= 1; }
+        if pressed_keys.contains(&Keycode::S) { movement.y += 1; }
+        if pressed_keys.contains(&Keycode::A) { movement.x -= 2; }
+        if pressed_keys.contains(&Keycode::D) { movement.x += 2; }
+    }
+
+    // try to move player
+    {
+        let player_wants_to_move = movement.x != 0 || movement.y != 0;
+        let player_has_stamina = player.movement_cooldown <= 0;
+
+        if player_wants_to_move && player_has_stamina {
+            player.x += movement.x;
+            player.y += movement.x;
+        }    
+    }
+
+    //keep player within some box
+    {
+        player.x = player.x.max(3).min(39);
+        player.y = player.y.max(1).min(15);
+    }
+
+    // put player on cooldown if it moved
+    {
+        let new_location= (player.x, player.y);
+        let player_moved = new_location != original_location;
+
+        if player_moved {
+            player.movement_cooldown = 30;
+        } 
+    }
 }
 
-fn set_up_terminal() {
-
-}
-
-fn gameloop(mut game_state: GameState) {
+fn gameloop(mut gs: GameState) {
     loop {
     let tick_start = Instant::now();
     
@@ -111,94 +154,52 @@ fn gameloop(mut game_state: GameState) {
     let device_state = DeviceState::new();
     let pressed_keys = device_state.get_keys();
     
-    if game_state.player_state.movement_cooldown <= 0 {
-        if pressed_keys.contains(&Keycode::W) {
-            game_state.player_state.location.y -= 1;
-            game_state.player_state.movement_cooldown = 30;
-        }
-        else if pressed_keys.contains(&Keycode::S) {
-            game_state.player_state.location.y += 1;
-            game_state.player_state.movement_cooldown = 30;
-        }
-        if pressed_keys.contains(&Keycode::A) {
-                game_state.player_state.location.x -= 2;
-                game_state.player_state.movement_cooldown = 30;
-        }
-        else if pressed_keys.contains(&Keycode::D) {
-            game_state.player_state.location.x += 2;
-            game_state.player_state.movement_cooldown = 30;
-        }
-    }
+    update_player_location(pressed_keys, gs.player);
 
-
-    game_state.player_state.movement_cooldown -= 1;
-
-    let mut x = game_state.player_state.location.x;
-    let mut y = game_state.player_state.location.y;
-    
-    //limit player bounds
-    x = x.max(3);
-    x = x.min(39);
-
-    y = y.max(1);
-    y = y.min(15);
-
-    //update player bounds to gamestate
-    game_state.player_state.location.x = x;
-    game_state.player_state.location.y = y;
-
-    
     //spawn enemies on the right side of the screen for the player to dodge
     
-    if game_state.enemy_spawner.cooldown < 1 {
-        game_state.enemy_spawner.cooldown = 100;
-        let mut new_enemy = vec![make_random_enemy_state()];
-        game_state.enemy_list.append(&mut new_enemy);
+    if gs.enemy_spawn_cooldown < 1 {
+        gs.enemy_spawn_cooldown = 100;
+
+        gs.enemy_list.push(
+            MoverState {
+                x: 40,
+                y: rand::thread_rng().gen_range(1..=15),
+                movement_cooldown: 15,
+            }
+        );
     }
     
-    game_state.enemy_spawner.cooldown -= 1;
+    gs.enemy_spawn_cooldown -= 1;
     
-    //update enemy state.
-    for mut enemy in &mut game_state.enemy_list {
+    //update enemy locations
+    for mut enemy in &mut gs.enemy_list {
 
-        if (enemy.movement_cooldown < 0) {
-            if enemy.location.x == 2 {
-                enemy.location.x = 40;
+        if enemy.movement_cooldown < 0 {
+            if enemy.x == 2 {
+                enemy.x = 40;
             }
             else
             {
-                enemy.location.x -= 1;
+                enemy.x -= 1;
                 enemy.movement_cooldown = 15;
             }
         }
 
-        if (enemy.location.x == game_state.player_state.location.x) & (enemy.location.y == game_state.player_state.location.y){
-            end_game();
+        //player dies when it stands on the same square as a snake
+        if (enemy.x == gs.player.x) & (enemy.y == gs.player.y){
+            std::process::exit(0);
         }
         
         enemy.movement_cooldown -= 1;
     }
 
-    render::render(&game_state);
-
+    render::render(&gs);
     limit_tickrate(&tick_start);
     }
 }
 
-fn make_random_enemy_state() -> EnemyState {
-    EnemyState {
-        location: gamestate::Location {
-            x: 40,
-            y: rand::thread_rng().gen_range(1..=15),// random y
-        },
-        movement_cooldown: 15,
-    }
-}
-
-fn end_game() {
-    std::process::exit(0);
-}
-
+//basically a spinlock
 fn limit_tickrate(tick_start: &Instant) {
     let elapsed_time = tick_start.elapsed();
     let min_tick_duration = Duration::from_millis(3);

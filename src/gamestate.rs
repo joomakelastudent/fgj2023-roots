@@ -1,90 +1,33 @@
-/*******************************************************************************
- * Finnish Game Jam 2023-02-03 project of team Ryhmä Rämä
- * Project name: tty-throwdown
- * Authors: see the AUTHORS.md file
- * License: Attribution-Noncommercial-Share Alike 3.0 license
- * Repo: https://github.com/joomakelastudent/fgj2023-roots
- ******************************************************************************/
+use crate::gameconsts;
 
- // List of (most) structs that are used in the game
-
+// structs that work to structure objects' internal data.
+// the idea is to handle them through SOA for blazing speeds
 pub struct GameState {
     pub map: Vec<char>,
-    pub control_state: ControlState,
-    pub player_state: PlayerState,
-    pub enemy_list: Vec<EnemyState>,
-    pub enemy_spawner:EnemySpawner,
+    pub enemy_list: Vec<MoverState>,
+    pub player: MoverState,
+    pub enemy_spawn_cooldown: gameconsts::CooldownType
 }
 
-// Is the game paused, in a menu or playable normally?
-pub enum ControlState {
-    MENU,
-    PAUSED,
-    ACTION,
+pub struct MoverState {
+    pub movement_cooldown: gameconsts::CooldownType,
+    pub x: gameconsts::CoordinateType,
+    pub y: gameconsts::CoordinateType,
+    
 }
 
-pub struct PlayerState {
-    pub location: Location,
-    pub health: Health,
-    pub facing: Facing,
-    pub moving: bool,
-    pub movement_cooldown: i32,
-    pub dash_cooldown: i32,
-    pub attack_cooldown: i32,
-    pub invis_frames: i32,
+// much clearer to have this here instead of main.rs
+// less "not pretty" initialization than before
+pub fn initialize_gamestate(map: Vec<char>) -> GameState {
+    GameState {
+        map,
+        enemy_list: vec![],
+        player: MoverState {
+            movement_cooldown: 0,
+            x:5,
+            y:5,
+        },
+        enemy_spawn_cooldown: 100,
+    }
 }
 
-pub struct Location {
-    pub x: usize,
-    pub y: usize,
-}
-
-pub struct Health {
-    pub current: i32,
-    pub max: i32,
-}
-
-pub struct EnemyState {
-    //pub action: EnemyAction,
-    //pub health: Health,
-    //pub species: EnemySpecies,
-    pub location: Location,
-    //pub facing: Facing,
-    //pub moving: bool,
-    pub movement_cooldown: i32,
-}
-
-pub struct EnemySpawner {
-    pub cooldown: usize,
-}
-
-pub struct AttackSquares {
-    pub location: Location,
-    pub facing: Facing,
-    pub owner: Faction,
-    pub damage: i8,
-}
-
-pub enum Faction {
-    PLAYER,
-    ENEMY,
-}
-
-pub enum EnemyAction {
-    IDLE,
-    MOVE_TO (Location),
-    ATTACK,
-    STUNNED,
-}
-
-pub enum EnemySpecies {
-    MELEE,
-    RANGED,
-}
-
-pub enum Facing {
-    NORTH,
-    EAST,
-    SOUTH,
-    WEST,
-}
